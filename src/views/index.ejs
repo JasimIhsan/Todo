@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TODO App</title>
+        <link rel="stylesheet" href="/css/index.css" />
+    </head>
+    <body>
+        <div class="todo-container">
+            <h1 class="heading">Get Things Done</h1>
+            <form class="todo-form" action="/add-task" method="POST">
+                <input type="text" name="task" id="taskInput" placeholder="Enter a new task" />
+                <button type="submit">Add Task</button>
+            </form>
+            <% if (error_msg) { %>
+            <p class="error_msg"><%= error_msg %></p>
+            <% } %>
+
+            <ul id="taskList">
+                <% tasks.forEach((task) => { %>
+                <li class="<%= task.completed ? 'completed' : '' %>" data-id="<%= task.id %>">
+                    <span class="task-text"><%= task.task %></span>
+                    <div class="button-container">
+                        <button class="edit" type="button">Edit</button>
+                        <button class="delete" type="button">Delete</button>
+                    </div>
+                    <!-- Edit Form (Initially Hidden) -->
+                    <div class="edit-form" style="display: none">
+                        <input type="text" class="edit-input" value="<%= task.task %>" />
+                        <div style="display: inline-block; margin-top: 10px">
+                            <button style="padding: 10px 70px" class="save-edit">Save</button>
+                            <button style="padding: 10px 70px" class="cancel-edit">Cancel</button>
+                        </div>
+                    </div>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+        <!-- Include Axios CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/javascript/index.js"></script>
+    </body>
+</html>
